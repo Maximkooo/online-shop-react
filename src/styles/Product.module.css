@@ -107,12 +107,12 @@
   column-gap: 10px;
 }
 
-.favourite {
+.favorite {
   background: var(--dark-sea);
   border-radius: 6px;
 }
 
-.favourite:hover {
+.favorite:hover {
   background: #7a8690;
 }
 
