@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../../styles/Header.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../utils/routes'
 import logo from '../../images/logo.svg'
 import avatar from '../../images/avatar.jpg'
@@ -9,7 +9,17 @@ import { toggleForm } from '../../store/user/userSlice'
 
 const Header = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { currentUser } = useSelector(({ user }) => user)
+
+  const [values, setValues] = useState({ name: "Guest", avatar: avatar })
+
+  useEffect(() => {
+    if (!currentUser) return
+    else navigate(ROUTES.PROFILE)
+
+    setValues(currentUser)
+  }, [currentUser, navigate])
 
   const handleClick = () => {
     if (!currentUser) dispatch(toggleForm(true))
@@ -24,8 +34,8 @@ const Header = () => {
       </div>
       <div className={styles.info}>
         <div className={styles.user} onClick={handleClick}>
-          <div className={styles.avatar} style={{ backgroundImage: `url(${avatar})` }} />
-          <div className={styles.username}>Guest</div>
+          <div className={styles.avatar} style={{ backgroundImage: `url(${values.avatar})` }} />
+          <div className={styles.username}>{values.name}</div>
         </div>
         <form className={styles.form}>
           <div className={styles.icon}>
