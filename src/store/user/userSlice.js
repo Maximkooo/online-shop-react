@@ -30,7 +30,6 @@ export const loginUser = createAsyncThunk('users/loginUser',
   async (payload, thunkAPI) => {
     try {
       const res = await axios.post(`${BASE_URL}/auth/login`, payload)
-      console.log(res.data);
       const login = await axios(`${BASE_URL}/auth/profile`, {
         headers: {
           "Authorization": `Bearer ${res.data.access_token}`
